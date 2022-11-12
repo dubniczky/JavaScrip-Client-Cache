@@ -1,21 +1,30 @@
 export default class ClientCache {
     cache = null // {value, expiry}
     resolver = null
-    expiry = 10
+    capacity = null
 
     /**
      * @param expiry Expiry time in milliseconds
      * @param resolver A pomise accepting a key to resolve the request
      */
-    constructor(expiry, resolver) {
+    constructor(options) {
+        if (options == null) {
+            throw new Error('Creating a cache requires a resolver')
+        }
+
         this.cache = {}
-        this.expiry = expiry
-        this.resolver = resolver
+        this.resolver = options.resolver
+
+        // Default is no expiry
+        this.expiry = options.expiry == null || options.expiry == 0 ? null : options.expiry
+
+        // Default is no capacity cap
+        this.capacity = options.capacity == null || options.capacity == 0 ? null : options.capacity
     }
     
     // Get the value from the cache or download with the resolver
     async get(key) {
-        if (this.cache[key] && this.cache[key].expiry > Date.now()) {
+        if (this.cache[key] && !!this.cache[key].expiry && this.cache[key].expiry > Date.now()) {
             return this.cache[key].value
         }
         else {
@@ -39,22 +48,24 @@ export default class ClientCache {
         }
     }
     
-    // Set the local key manually
+    /**
+     * Set the local key manually
+     */
     set(key, value, expiry = null) {
         this.cache[key] = value
     }
 
     /**
      * Delete a single key in the cache
-     */
-    unset(key) {
+     */a
+    invalidate(key) {
         delete this.cache[key]
     }
 
     /**
-     * Clear the entire cache
+     * Remove all the keys in the cache
      */
-    clear() {
+    reset() {
         this.cache = {}
     }
 }
