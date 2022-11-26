@@ -1,4 +1,4 @@
-export default class ClientCache {
+export default class RemoteCache {
     cache = null // {value, expiry}
     resolver = null
     capacity = null
