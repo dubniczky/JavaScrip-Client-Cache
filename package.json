@@ -1,11 +1,8 @@
 {
-  "name": "client-cache",
+  "name": "remote-cache",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "cache.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
