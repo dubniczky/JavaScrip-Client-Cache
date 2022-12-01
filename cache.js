@@ -53,17 +53,6 @@ export default class RemoteCache {
     }
 
     /**
-     * Download the key with the resolver and store it in the cache
-     *
-     * @param {string|number} key - The object key to retreieve
-     * @return {Object|null} - Retrieved data or null if not found
-     */
-    async reload(key) {
-        const value = await this.resolver(key)
-        this.set(key, value)
-    }
-    
-    /**
      * Set the local key manually
      *
      * @param {string|number} key - The object key to store
@@ -98,6 +87,17 @@ export default class RemoteCache {
         }
 
         return overwritten
+    }
+
+    /**
+     * Download the key with the resolver and store it in the cache
+     *
+     * @param {string|number} key - The object key to retreieve
+     * @return {Object|null} - Retrieved data or null if not found
+     */
+    async reload(key) {
+        const value = await this.resolver(key)
+        this.set(key, value)
     }
 
     /**
