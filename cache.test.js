@@ -35,8 +35,22 @@ describe('Correct caching', () => {
         cache.set('test2', 'NOT TEST')
         expect(cache.size()).toBe(2)
 
-        // added duplicate (2 items)
+        // Added duplicate (2 items)
         cache.set('test2', 'NOT TEST')
         expect(cache.size()).toBe(2)
+    })
+
+    test('should reset correctly', async () => {
+        const cache = createDemoUppercaseCache()
+
+        // Fill
+        cache.set('test', 'NOT TEST')
+        cache.set('test2', 'NOT TEST')
+        cache.set('test3', 'NOT TEST')
+        expect(cache.size()).toBe(3)
+
+        // Reset
+        cache.reset()
+        expect(cache.size()).toBe(0)
     })
 })
