@@ -7,18 +7,22 @@
  * @return {Object|null} - Object to be cached, null if not found
 */
 
+/**
+ * @typedef {Object} CacheOptions
+ * @property {ResolverFunction} resolver - The function to resolve a request
+ * @property {number} [ttl=0] - The time to live for a cached item in seconds
+ * @property {number} [capacity=0] - The maximum number of items to cache
+ */
+
 
 export default class RemoteCache {
     cache = null // { key1: {value, expiry}, key2: {value, expiry}, ... }
     resolver = null
-    expiry = null
-    capacity = null
+    ttl = 0
+    capacity = 0
 
     /**
-     * @param {Object} options - The options object, see details for each option
-     * @param {ResolverFunction} options.resolver - A pomise accepting a key to resolve the request
-     * @param {number?} options.expiry - Default expiry time in for objects in milliseconds
-     * @param {capacity?} options.capacity - Maximum number of objects to store in the cache
+     * @param {CacheOptions} options - The initialisation options for the cache
      */
     constructor(options) {
         if (options == null) {
@@ -29,10 +33,10 @@ export default class RemoteCache {
         this.resolver = options.resolver
 
         // Default is no expiry
-        this.expiry = options.expiry == null || options.expiry == 0 ? null : options.expiry
+        this.ttl = options.ttl == null ? 0 : options.ttl
 
         // Default is no capacity cap
-        this.capacity = options.capacity == null || options.capacity == 0 ? null : options.capacity
+        this.capacity = options.capacity == null ? 0 : options.capacity
     }
     
     /**
@@ -74,7 +78,7 @@ export default class RemoteCache {
                 break
             // Default expiry
             case 0:
-                expiry = this.expiry == null ? null : expiry + this.expiry
+                expiry = this.ttl == 0 ? null : expiry + this.ttl
                 break
             // Custom expiry
             default:
