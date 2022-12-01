@@ -1,6 +1,10 @@
 npm_username := dubniczky
 keychain_id := npm-publisher
 
+# Install required packages
+install::
+	pnpm install
+
 # Run automatic tests
 test::
 	@node --experimental-vm-modules node_modules/jest/bin/jest.js
