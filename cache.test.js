@@ -20,7 +20,23 @@ describe('Correct caching', () => {
         const cache = createDemoUppercaseCache()
         
         cache.set('test', 'NOT TEST')
-        console.log(cache.capacity, cache.ttl, cache.size())
         expect(await cache.get('test')).toBe('NOT TEST')
+    })
+
+    test('should return correct sizes', async () => {
+        const cache = createDemoUppercaseCache()
+        expect(cache.size()).toBe(0)
+
+        // 1 item
+        cache.set('test', 'NOT TEST')
+        expect(cache.size()).toBe(1)
+
+        // 2 items
+        cache.set('test2', 'NOT TEST')
+        expect(cache.size()).toBe(2)
+
+        // added duplicate (2 items)
+        cache.set('test2', 'NOT TEST')
+        expect(cache.size()).toBe(2)
     })
 })
