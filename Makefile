@@ -9,6 +9,14 @@ install::
 build::
 	npx tsc
 
+# Format typescipt code using prettier
+format::
+	npx prettier --write \"src/**/*.ts\" \"src/**/*.js\"
+
+# Run eslint on all typescript files
+lint::
+	npx eslint src/**/*.ts
+
 # Run automatic tests
 test::
 	@node --experimental-vm-modules node_modules/jest/bin/jest.js
