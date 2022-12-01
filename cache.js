@@ -68,18 +68,33 @@ export default class RemoteCache {
      *
      * @param {string|number} key - The object key to store
      * @param {Object} value - The value to be stored
-     * @param {number?} ttl - Override the default expiry time
+     * @param {number?} ttl - Override the default expiry time (default if 0, no expiry if null)
      * @return {boolean} - True if a key was overwritten, false if not
      */
-    set(key, value, ttl = null) {
+    set(key, value, ttl = 0) {
         let overwritten = false
         if (this.cache[key]) {
             overwritten = true
         }
 
+        let expiry = Date.now()
+        switch (ttl) {
+            // No expiry
+            case null:
+                expiry = null
+                break
+            // Default expiry
+            case 0:
+                expiry = this.expiry == null ? null : expiry + this.expiry
+                break
+            // Custom expiry
+            default:
+                expiry = expiry + ttl
+        }
+        
         this.cache[key] = {
             value: value,
-            expiry: Date.now() + (ttl == null ? this.expiry : ttl)
+            expiry: expiry
         }
 
         return overwritten
@@ -119,5 +134,18 @@ export default class RemoteCache {
      */
     size() {
         return Object.keys(this.cache).length
+    }
+
+    /**
+     * Remove invalid and expired items from the cache
+     *
+     * @return {number} - Number of cached items
+     */
+    clean() {
+        for (const key in this.cache) {
+            if (this.cache[key].expiry && this.cache[key].expiry < Date.now()) {
+                delete this.cache[key]
+            }
+        }
     }
 }
