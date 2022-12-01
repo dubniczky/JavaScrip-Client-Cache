@@ -50,9 +50,7 @@ export default class RemoteCache {
             return this.cache[key].value
         }
         else {
-            const value = await this.resolver(key)
-            this.set(key, value)
-            return value
+            return await this.reload(key)
         }
     }
 
@@ -100,8 +98,15 @@ export default class RemoteCache {
      * @return {Object|null} - Retrieved data or null if not found
      */
     async reload(key) {
-        const value = await this.resolver(key)
-        this.set(key, value)
+        try {
+            const value = await this.resolver(key)
+            this.set(key, value)
+        } catch (e) {
+            //console.log(`Unable to resolve key (${key}):`, e)
+            delete this.cache[key]
+            return null
+        }
+        return this.cache[key].value
     }
 
     /**

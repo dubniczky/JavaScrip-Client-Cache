@@ -1,8 +1,8 @@
-import Cache from './cache'
+import RemoteCache from './cache'
 
 // Create a new cache with local resolving
 function createDemoUppercaseCache() {
-    return new Cache({
+    return new RemoteCache({
         resolver: async (key) => {
             return key.toUpperCase()
         }
@@ -115,5 +115,19 @@ describe('Correct caching', () => {
         expect(await cache.get('test2')).toBe('TEST2')
         expect(await cache.get('test3')).toBe('3')
         expect(count).toBe(2)
+    })
+
+    test('should handle error', async () => {
+        const cache = new RemoteCache({
+            resolver: async (key) => {
+                if (key % 2 == 0) {
+                    throw new Error('Test error')
+                }
+            }
+        })
+
+        cache.get(0).catch((err) => {
+            expect(err.message).toBe('Test error')
+        })
     })
 })
