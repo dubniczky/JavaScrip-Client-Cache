@@ -1,10 +1,14 @@
 {
   "name": "remote-cache",
-  "version": "1.1.0",
-  "description": "",
+  "version": "1.2.0",
+  "description": "A front-end module for automating the caching of server-side requests",
   "main": "cache.js",
-  "keywords": [],
-  "author": "",
+  "keywords": ["cache", "remote", "request", "server", "http", "ajax", "jsonp", "json", "rest", "api", "web", "service"],
+  "author": "Richard Antal Nagy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dubniczky/Remote-Cache"
+  },
   "license": "ISC",
   "devDependencies": {
     "jest": "^29.2.1"
