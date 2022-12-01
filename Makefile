@@ -5,6 +5,10 @@ keychain_id := npm-publisher
 install::
 	pnpm install
 
+# Compile typescript to commonjs
+build::
+	npx tsc
+
 # Run automatic tests
 test::
 	@node --experimental-vm-modules node_modules/jest/bin/jest.js
