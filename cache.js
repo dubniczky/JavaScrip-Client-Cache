@@ -149,3 +149,5 @@ export default class RemoteCache {
         }
     }
 }
+
+export { RemoteCache }
