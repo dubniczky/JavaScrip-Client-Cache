@@ -25,3 +25,14 @@ let item = await cache.get('keyname')
 cache.set('keyname', 8)
 
 ```
+
+### List of Methods
+
+- `get(key)` - Get the value from the cache or download with the resolver
+- `set(key, value, ttl?)` - Set the local key manually
+- `reload(key)` - Resolve the key with the resolver and store it in the cache
+- `reloadAll(keys?)` - Resolve the keys with the resolver and store them in the cache
+- `invalidate(key)` - Invalidate a key in the cache by removing it
+- `reset()` - Invalidate all keys in the cache
+- `size()` - Get the number of cached items
+- `clean()` - Remove invalid and expired items from the cache

@@ -92,7 +92,7 @@ export default class RemoteCache {
     }
 
     /**
-     * Download the key with the resolver and store it in the cache
+     * Resolve the key with the resolver and store it in the cache
      *
      * @param {string|number} key - The object key to retreieve
      * @return {Object|null} - Retrieved data or null if not found
@@ -110,7 +110,7 @@ export default class RemoteCache {
     }
 
     /**
-     * Download the keys with the resolver and store it in the cache
+     * Resolve the keys with the resolver and store them in the cache
      *
      * @param {string[]|number[]|null} keys - List of keys to reload, null to reload all currently in cache
      * @return {number} - Number of keys reloaded
@@ -126,7 +126,7 @@ export default class RemoteCache {
     }
 
     /**
-     * Invlidate a key in the cache by removing it
+     * Invalidate a key in the cache by removing it
      *
      * @param {string|number} key - The key to invalidate
      * @return {boolean} - True if a key was invalidated, false if it did not exist
