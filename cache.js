@@ -47,10 +47,7 @@ export default class RemoteCache {
         }
         else {
             const value = await this.resolver(key)
-            this.cache[key] = {
-                value: value,
-                expiry: Date.now() + this.expiry
-            }
+            this.set(key, value)
             return value
         }
     }
@@ -63,10 +60,7 @@ export default class RemoteCache {
      */
     async reload(key) {
         const value = await this.resolver(key)
-        this.cache[key] = {
-            value: value,
-            expiry: Date.now() + this.expiry
-        }
+        this.set(key, value)
     }
     
     /**
@@ -74,17 +68,20 @@ export default class RemoteCache {
      *
      * @param {string|number} key - The object key to store
      * @param {Object} value - The value to be stored
+     * @param {number?} ttl - Override the default expiry time
      * @return {boolean} - True if a key was overwritten, false if not
      */
-    set(key, value) {
+    set(key, value, ttl = null) {
         let overwritten = false
         if (this.cache[key]) {
             overwritten = true
         }
+
         this.cache[key] = {
             value: value,
-            expiry: Date.now() + this.expiry
+            expiry: Date.now() + (ttl == null ? this.expiry : ttl)
         }
+
         return overwritten
     }
 
@@ -112,5 +109,15 @@ export default class RemoteCache {
         const count = Object.keys(this.cache).length
         this.cache = {}
         return count
+    }
+
+    /**
+     * Get the number of cached items
+     * Some cached items might have expired
+     *
+     * @return {number} - Number of cached items
+     */
+    size() {
+        return Object.keys(this.cache).length
     }
 }
