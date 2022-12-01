@@ -11,6 +11,7 @@
 export default class RemoteCache {
     cache = null // { key1: {value, expiry}, key2: {value, expiry}, ... }
     resolver = null
+    expiry = null
     capacity = null
 
     /**
