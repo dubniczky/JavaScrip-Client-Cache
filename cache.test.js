@@ -69,4 +69,16 @@ describe('Correct caching', () => {
         cache.invalidate('test2')
         expect(cache.size()).toBe(1)
     })
+
+    test('should reload correctly', async () => {
+        const cache = createDemoUppercaseCache()
+
+        // Fill
+        cache.set('test1', '1')
+        expect(await cache.get('test1')).toBe('1')
+
+        // Reload
+        await cache.reload('test1')
+        expect(await cache.get('test1')).toBe('TEST1')
+    })
 })
