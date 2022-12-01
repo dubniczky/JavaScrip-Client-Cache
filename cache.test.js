@@ -53,4 +53,20 @@ describe('Correct caching', () => {
         cache.reset()
         expect(cache.size()).toBe(0)
     })
+
+    test('should invalidate correctly', async () => {
+        const cache = createDemoUppercaseCache()
+
+        // Fill
+        cache.set('test', 'NOT TEST')
+        cache.set('test2', 'NOT TEST')
+        cache.set('test3', 'NOT TEST')
+        expect(cache.size()).toBe(3)
+
+        // Reset
+        cache.invalidate('test3')
+        expect(cache.size()).toBe(2)
+        cache.invalidate('test2')
+        expect(cache.size()).toBe(1)
+    })
 })
