@@ -105,6 +105,22 @@ export default class RemoteCache {
     }
 
     /**
+     * Download the keys with the resolver and store it in the cache
+     *
+     * @param {string[]|number[]|null} keys - List of keys to reload, null to reload all currently in cache
+     * @return {number} - Number of keys reloaded
+     */
+    async reloadAll(keys = null) {
+        if (keys == null) {
+            keys = Object.keys(this.cache)
+        }
+        for (const key of keys) {
+            await this.reload(key)
+        }
+        return keys.length
+    }
+
+    /**
      * Invlidate a key in the cache by removing it
      *
      * @param {string|number} key - The key to invalidate

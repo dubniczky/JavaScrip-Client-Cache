@@ -81,4 +81,39 @@ describe('Correct caching', () => {
         await cache.reload('test1')
         expect(await cache.get('test1')).toBe('TEST1')
     })
+
+    test('should reloadAll from cache correctly', async () => {
+        const cache = createDemoUppercaseCache()
+
+        // Fill
+        cache.set('test1', '1')
+        cache.set('test2', '2')
+        expect(await cache.get('test1')).toBe('1')
+        expect(await cache.get('test2')).toBe('2')
+
+        // Reload
+        const count = await cache.reloadAll()
+        expect(await cache.get('test1')).toBe('TEST1')
+        expect(await cache.get('test2')).toBe('TEST2')
+        expect(count).toBe(2)
+    })
+
+    test('should reloadAll from list correctly', async () => {
+        const cache = createDemoUppercaseCache()
+
+        // Fill
+        cache.set('test1', '1')
+        cache.set('test2', '2')
+        cache.set('test3', '3')
+        expect(await cache.get('test1')).toBe('1')
+        expect(await cache.get('test2')).toBe('2')
+        expect(await cache.get('test3')).toBe('3')
+
+        // Reload
+        const count = await cache.reloadAll(['test1', 'test2'])
+        expect(await cache.get('test1')).toBe('TEST1')
+        expect(await cache.get('test2')).toBe('TEST2')
+        expect(await cache.get('test3')).toBe('3')
+        expect(count).toBe(2)
+    })
 })
