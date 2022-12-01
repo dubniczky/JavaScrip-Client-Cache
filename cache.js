@@ -46,7 +46,7 @@ export default class RemoteCache {
      * @return {Object|null} - Retrieved data or null if not found
      */
     async get(key) {
-        if (this.cache[key] && !!this.cache[key].expiry && this.cache[key].expiry > Date.now()) {
+        if (this.cache[key] && (this.cache[key].expiry == null || this.cache[key].expiry > Date.now())) {
             return this.cache[key].value
         }
         else {
