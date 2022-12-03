@@ -8,9 +8,19 @@ The `resolver` property must be specified with an asynchronous function that acc
 
 The data between acquiring the request for the key and the eventual return of the value can be modified freely and any type of data may be returned.
 
+Import using CommonJS or ESM modules
+
+```js
+const { RemoteCache } = require('remote-cache')
+```
+
 ```js
 import RemoteCache from 'remote-cache'
+```
 
+Create a cache and configure it
+
+```js
 const cache = new RemoteCache({
     resolver: async (key) => {
         return await (await fetch(`example.com/api/items/${key}`)).text()
@@ -23,7 +33,6 @@ const cache = new RemoteCache({
 
 let item = await cache.get('keyname')
 cache.set('keyname', 8)
-
 ```
 
 ### List of Methods
