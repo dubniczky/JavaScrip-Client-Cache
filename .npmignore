@@ -4,8 +4,8 @@ src/tests
 .gitignore
 Makefile
 .eslintrc.yml
-.jestrc.yml
+.jestrc.json
 .prettierrc
-tscconfig.json
+tsconfig.json
 tsconfig.cjs.json
 tsconfig.mjs.json
