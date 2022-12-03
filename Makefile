@@ -11,11 +11,11 @@ build::
 
 	@echo "Compiling to commonjs..."
 	@npx tsc -p tsconfig.cjs.json && \
-		echo "{"type":"commonjs"}" > lib/cjs/package.json
-		
+		echo '{"type":"commonjs"}' > lib/cjs/package.json
+
 	@echo "Compiling to module..."
 	@npx tsc -p tsconfig.mjs.json && \
-		echo "{"type":"module"}" > lib/mjs/package.json
+		echo '{"type":"module"}' > lib/mjs/package.json
 
 # Format typescipt code using prettier
 format::
