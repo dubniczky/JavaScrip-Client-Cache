@@ -27,3 +27,8 @@ publish::
 		"//registry.npmjs.org/:_authToken" \
 		"$(shell security find-generic-password -w -s '$(keychain_id)' -a '$(npm_username)')" \
 	&& npm publish
+
+# Save updated package version as a git tag
+tag::
+	git tag "v$(shell cat package.json | jq ".version" -crM)"
+	git push --tags
