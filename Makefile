@@ -17,9 +17,9 @@ format::
 lint::
 	npx eslint src/**/*.ts
 
-# Run automatic tests
+# Run jest tests
 test::
-	@node --experimental-vm-modules node_modules/jest/bin/jest.js
+	@npx jest --config .jestrc.json
 
 # Publish package to npm package registry
 publish::
