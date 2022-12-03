@@ -1,12 +1,24 @@
 {
     "compilerOptions": {
-      "target": "es5",
-      "module": "commonjs",
       "declaration": true,
-      "outDir": "./lib",
       "strict": true,
-      "lib": [ "es2015" ],
+      "lib": [ "esnext" ],
+      "esModuleInterop": true,
+      "allowJs": true,
+      "allowSyntheticDefaultImports": true,
+      "baseUrl": "src",
+      "inlineSourceMap": false,
+      "listEmittedFiles": false,
+      "listFiles": false,
+      "moduleResolution": "node",
+      "noFallthroughCasesInSwitch": true,
+      "pretty": true,
+      "resolveJsonModule": true,
+      "rootDir": "src",
+      "skipLibCheck": true,
+      "traceResolution": false,
+      "types": ["node", "jest"]
     },
     "include": ["src"],
-    "exclude": ["node_modules", "**/__tests__/*"]
+    "exclude": ["node_modules", "dist", "lib", "src/tests"]
 }
